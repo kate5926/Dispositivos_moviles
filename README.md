@@ -4,7 +4,7 @@ Dispositivos Móviles
 Katherine Saico  
 
 #  Examen Parcial: Juego de Colores
-Desarrolla una aplicación usando Kotlin y Android Studio. El juego pondrá a prueba tu capacidad de crear una app interactiva con múltiples fragments, navegación, gestión de estados del ciclo de vida, la interacción avanzada con RecyclerView, manejo de ventanas de diálogo, lógica condicional y elementos visuales.
+Desarrolla una aplicación usando Kotlin y Android Studio. Una app interactiva con múltiples fragments, navegación, gestión de estados del ciclo de vida, RecyclerView, manejo de ventanas,  y elementos visuales.
 
 
 
