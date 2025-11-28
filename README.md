@@ -88,5 +88,47 @@ Desarrollar una aplicación móvil llamada **“GASTOS”** que permita a los us
   - Un contenedor para mostrar gráficos circulares o de barras.
 - **Controlador:** `ReportsFragment.kt` se encargará de generar los gráficos utilizando una librería externa para una visualización de datos efectiva.
 
+# 💰 Controla tus Finanzas - App Móvil
+
+Una aplicación móvil diseñada para ayudarte a organizar mejor tu dinero de manera **sencilla, intuitiva y visual**.
+
+## ✨ Características Principales
+
+- **Registro de transacciones**: Controla ingresos y gastos fácilmente
+- **Gestión de presupuestos**: Establece límites mensuales y monitorea tu progreso  
+- **Reportes visuales**: Gráficos claros sobre el uso de tu dinero
+- **Historial completo**: Consulta todas tus transacciones organizadas
+
+##  Pantallas Desarrolladas
+
+###  Home Principal
+- Vista rápida de tu saldo disponible
+- Acceso rápido a todas las funciones principales
+- Navegación intuitiva entre módulos
+
+###  Agregar Transacciones
+- Registro de ingresos y gastos
+- Categorización de movimientos
+- Fecha, monto y descripción
+
+###  Historial
+- Lista completa de transacciones
+- Interfaz dinámica con RecyclerView
+- Fácil navegación y consulta
+
+###  Presupuestos
+- Establecimiento de límites mensuales
+- Seguimiento visual con barras de progreso
+- Control de gastos por categorías
+
+### Reportes
+- Filtros por mes y año
+- Gráficos estadísticos
+- Análisis visual de finanzas
+
+##  Navegación
+
+Todas las pantallas están conectadas mediante un sistema de navegación fluido, permitiendo moverse entre módulos con un solo clic.
+
 
 
