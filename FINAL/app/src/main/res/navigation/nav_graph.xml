@@ -5,22 +5,28 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
+    <!-- Fragmento Home -->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.gastos.ui.home.HomeFragment"
-        android:label="Home"
+        android:name="com.tupaquete.ui.fragments.HomeFragment"
+        android:label="Inicio"
         tools:layout="@layout/fragment_home">
+
+        <!-- Acciones de navegación -->
         <action
-            android:id="@+id/action_home_to_add_transaction"
+            android:id="@+id/action_homeFragment_to_addTransactionFragment"
             app:destination="@id/addTransactionFragment" />
+
         <action
-            android:id="@+id/action_home_to_transaction_list"
-            app:destination="@id/transactionListFragment" />
+            android:id="@+id/action_homeFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment" />
+
         <action
-            android:id="@+id/action_home_to_budgets"
+            android:id="@+id/action_homeFragment_to_budgetsFragment"
             app:destination="@id/budgetsFragment" />
+
         <action
-            android:id="@+id/action_home_to_reports"
+            android:id="@+id/action_homeFragment_to_reportsFragment"
             app:destination="@id/reportsFragment" />
     </fragment>
 
