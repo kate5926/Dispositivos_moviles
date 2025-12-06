@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.gastos.ui.fragments.HomeFragment"
+        android:name="com.example.gastos.ui.fragment.HomeFragment"
         android:label="Inicio"
         tools:layout="@layout/fragment_home">
 
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="com.example.gastos.ui.fragments.TransactionFragment"
+        android:name="com.example.gastos.ui.fragment.TransactionFragment"
         android:label="Nueva Transacción"
         tools:layout="@layout/fragment_transaction" />
 
@@ -46,9 +46,10 @@
         android:label="Presupuestos"
         tools:layout="@layout/fragment_budget" />
 
+    <!-- ¡CORREGIR ESTA LÍNEA! Cambia de ui.fragments a ui.fragment -->
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.example.gastos.ui.fragments.ReportFragment"
+        android:name="com.example.gastos.ui.fragment.ReportFragment"
         android:label="Reportes"
         tools:layout="@layout/fragment_report" />
 
