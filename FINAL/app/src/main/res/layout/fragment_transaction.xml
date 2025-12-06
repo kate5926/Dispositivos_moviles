@@ -1,103 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.transaction.AddTransactionFragment">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/bg_main">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tvFormTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar Nuevo Movimiento"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:layout_marginBottom="30dp" />
+
+    <!-- Selector Tipo (Ingreso/Gasto) -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TIPO DE TRANSACCIÓN"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <RadioGroup
+        android:id="@+id/rgTipo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_rounded_slate"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="30dp">
+
+        <!-- Botón para Ingreso -->
+        <RadioButton
+            android:id="@+id/rbIngreso"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Ingreso"
+            android:textColor="@color/emerald_400"
+            android:button="@null"
+            android:gravity="center"
+            android:background="@drawable/selector_radio" />
+
+        <!-- Botón para Gasto -->
+        <RadioButton
+            android:id="@+id/rbGasto"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Gasto"
+            android:textColor="@color/red_400"
+            android:button="@null"
+            android:gravity="center"
+            android:background="@drawable/selector_radio"
+            android:checked="true" />
+    </RadioGroup>
+
+    <!-- Monto Input -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MONTO (€ / $ / Bs)"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/etMonto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:hint="0.00"
+        android:inputType="numberDecimal"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_secondary"
+        android:textSize="32sp"
+        android:background="@drawable/edittext_background"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp" />
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Agregar Transacción"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <!-- Descripción Input -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DESCRIPCIÓN BREVE"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
 
-        <RadioGroup
-            android:id="@+id/rg_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            android:layout_marginTop="16dp">
+    <EditText
+        android:id="@+id/etDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ej. Pago de matrícula"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_secondary"
+        android:background="@drawable/edittext_background"
+        android:padding="12dp"
+        android:layout_marginTop="8dp" />
 
-            <RadioButton
-                android:id="@+id/rb_income"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ingreso" />
+    <!-- Botón de Guardar -->
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="GUARDAR MOVIMIENTO"
+        android:backgroundTint="@color/neon_purple"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        app:cornerRadius="12dp" />
 
-            <RadioButton
-                android:id="@+id/rb_expense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gasto" />
-
-        </RadioGroup>
-
-        <EditText
-            android:id="@+id/et_amount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Monto"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rg_type"
-            android:layout_marginTop="16dp" />
-
-        <Spinner
-            android:id="@+id/sp_category"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Categoría"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_amount"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/et_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Fecha (DD/MM/YYYY)"
-            android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sp_category"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/et_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Descripción"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_date"
-            android:layout_marginTop="16dp" />
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Guardar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_description"
-            android:layout_marginTop="24dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</ScrollView>
+</LinearLayout>
