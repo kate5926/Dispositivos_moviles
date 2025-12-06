@@ -7,22 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gastos.adapters.BudgetAdapter
-import com.example.gastos.databinding.FragmentBudgetBinding
-import com.example.gastos.viewmodels.BudgetViewModel
+import com.example.gastos.adapters.TransactionAdapter
+import com.example.gastos.databinding.FragmentTransactionListBinding
+import com.example.gastos.viewmodels.TransactionViewModel
 
-class BudgetFragment : Fragment() {
+class TransactionListFragment : Fragment() {
 
-    private var _binding: FragmentBudgetBinding? = null
+    private var _binding: FragmentTransactionListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: BudgetViewModel by viewModels()
-    private lateinit var adapter: BudgetAdapter
+    private val viewModel: TransactionViewModel by viewModels()
+    private lateinit var adapter: TransactionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBudgetBinding.inflate(inflater, container, false)
+        _binding = FragmentTransactionListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -30,18 +30,13 @@ class BudgetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Configura RecyclerView
-        adapter = BudgetAdapter()
+        adapter = TransactionAdapter()
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
 
-        // Observa presupuestos y actualiza adapter
-        viewModel.budgets.observe(viewLifecycleOwner) { budgets ->
-            adapter.submitList(budgets)
-        }
-
-        // Botón para agregar presupuesto (puedes navegar a un dialog o fragment)
-        binding.btnAddBudget.setOnClickListener {
-            // TODO: Implementar navegación o dialog para agregar presupuesto
+        // Observa la lista de transacciones y actualiza el adapter
+        viewModel.transactions.observe(viewLifecycleOwner) { transactions ->
+            adapter.submitList(transactions.sortedByDescending { it.date })  // Ordena por fecha descendente
         }
     }
 

@@ -1,81 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
-    <!-- Fragmento Home -->
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.tupaquete.ui.fragments.HomeFragment"
-        android:label="Inicio"
-        tools:layout="@layout/fragment_home">
-
-        <!-- Acciones de navegación -->
-        <action
-            android:id="@+id/action_homeFragment_to_addTransactionFragment"
-            app:destination="@id/addTransactionFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_transactionsFragment"
-            app:destination="@id/transactionsFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_budgetsFragment"
-            app:destination="@id/budgetsFragment" />
-
-        <action
-            android:id="@+id/action_homeFragment_to_reportsFragment"
-            app:destination="@id/reportsFragment" />
-    </fragment>
-
+        android:name="com.example.gastos.ui.fragments.HomeFragment"
+        android:label="Home" />
     <fragment
-        android:id="@+id/addTransactionFragment"
-        android:name="com.example.gastos.ui.transaction.AddTransactionFragment"
-        android:label="Agregar Transacción"
-        tools:layout="@layout/fragment_transaction">
-        <action
-            android:id="@+id/action_add_transaction_to_home"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-
+        android:id="@+id/transactionFragment"
+        android:name="com.example.gastos.ui.fragments.AddTransactionFragment"
+        android:label="Add Transaction" />
     <fragment
         android:id="@+id/transactionListFragment"
-        android:name="com.example.gastos.ui.transaction.TransactionListFragment"
-        android:label="Historial"
-        tools:layout="@layout/fragment_transaction_list">
-        <action
-            android:id="@+id/action_transaction_list_to_home"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-
+        android:name="com.example.gastos.ui.fragments.TransactionListFragment"
+        android:label="Transaction List" />
     <fragment
-        android:id="@+id/budgetsFragment"
-        android:name="com.example.gastos.ui.budget.BudgetFragment"
-        android:label="Presupuestos"
-        tools:layout="@layout/fragment_budget">
-        <action
-            android:id="@+id/action_budgets_to_home"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-
+        android:id="@+id/budgetFragment"
+        android:name="com.example.gastos.ui.fragments.BudgetFragment"
+        android:label="Budgets" />
     <fragment
-        android:id="@+id/reportsFragment"
-        android:name="com.example.gastos.ui.reports.ReportsFragment"
-        android:label="Reportes"
-        tools:layout="@layout/fragment_report">
-        <action
-            android:id="@+id/action_reports_to_home"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-
+        android:id="@+id/reportFragment"
+        android:name="com.example.gastos.ui.fragments.ReportFragment"
+        android:label="Reports" />
 </navigation>
