@@ -1,25 +1,24 @@
-package com.example.gastos.ui.fragments  // Ajusta el paquete
+package com.example.gastos.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gastos.adapters.BudgetAdapter
+import com.example.gastos.data.entities.Budget
 import com.example.gastos.databinding.FragmentBudgetBinding
-import com.example.gastos.viewmodels.BudgetViewModel
 
 class BudgetFragment : Fragment() {
 
     private var _binding: FragmentBudgetBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: BudgetViewModel by viewModels()
-    private lateinit var adapter: BudgetAdapter
+    private val adapter = BudgetAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBudgetBinding.inflate(inflater, container, false)
@@ -29,20 +28,24 @@ class BudgetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Configura RecyclerView
-        adapter = BudgetAdapter()
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = adapter
+        // Configurar RecyclerView
+        binding.recyclerViewBudgets.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewBudgets.adapter = adapter
+/*
+        // Datos de ejemplo (deberían venir de un ViewModel)
+        val budgets = listOf(
+            Budget("Comida", 150.0, 200.0),
+            Budget("Transporte", 80.0, 100.0),
+            Budget("Entretenimiento", 120.0, 100.0),
+            Budget("Compras", 300.0, 500.0),
+            Budget("Salud", 50.0, 150.0)
+        )
 
-        // Observa presupuestos y actualiza adapter
-        viewModel.budgets.observe(viewLifecycleOwner) { budgets ->
-            adapter.submitList(budgets)
-        }
+        adapter.submitList(budgets)  */
 
-        // Botón para agregar presupuesto (puedes navegar a un dialog o fragment)
+
         binding.btnAddBudget.setOnClickListener {
-            // TODO: Implementar navegación o dialog para agregar presupuesto
-        }
+              }
     }
 
     override fun onDestroyView() {

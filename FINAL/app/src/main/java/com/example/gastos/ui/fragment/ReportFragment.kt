@@ -1,4 +1,4 @@
-package com.example.gastos.ui.fragments  // Ajusta el paquete
+package com.example.gastos.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,19 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.gastos.R
 import com.example.gastos.databinding.FragmentReportBinding
 import com.example.gastos.viewmodels.ReportViewModel
-import java.text.SimpleDateFormat
-import java.util.*
+import java.text.NumberFormat
+import java.util.Locale
 
 class ReportFragment : Fragment() {
 
     private var _binding: FragmentReportBinding? = null
     private val binding get() = _binding!!
+
+    // CORRECTO: Especifica el tipo explícitamente
     private val viewModel: ReportViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReportBinding.inflate(inflater, container, false)
@@ -28,58 +33,100 @@ class ReportFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Navegación de meses
-        binding.btnPrevMonth.setOnClickListener { navigateMonth(-1) }
-        binding.btnNextMonth.setOnClickListener { navigateMonth(1) }
+        setupUI()
+        setupObservers()
+        setupClickListeners()
+    }
 
-        // Observa mes/año y actualiza texto + gráfico
-        viewModel.selectedMonth.observe(viewLifecycleOwner) { month ->
-            val monthName = SimpleDateFormat("MMMM", Locale.getDefault()).format(Calendar.getInstance().apply { set(Calendar.MONTH, month - 1) }.time).uppercase()
-            binding.tvSelectedMonth.text = monthName
-            updateBars()
-        }
-        viewModel.selectedYear.observe(viewLifecycleOwner) { year ->
+    private fun setupUI() {
+        // Formateador de números
+        val formatter = NumberFormat.getCurrencyInstance(Locale.US)
+
+        // Configurar ViewModel
+        viewModel.selectedMonth.observe(viewLifecycleOwner, Observer { month ->
+            binding.tvSelectedMonth.text = getMonthName(month)
+        })
+
+        viewModel.selectedYear.observe(viewLifecycleOwner, Observer { year ->
             binding.tvSelectedYear.text = year.toString()
-        }
+        })
 
-        // Observa estadísticas y actualiza textos
-        viewModel.totalIncome.observe(viewLifecycleOwner) { binding.tvTotalIncome.text = String.format("$%.2f", it) }
-        viewModel.totalExpense.observe(viewLifecycleOwner) { binding.tvTotalExpense.text = String.format("$%.2f", it) }
-        viewModel.netBalance.observe(viewLifecycleOwner) { binding.tvNetBalance.text = String.format("$%.2f", it) }
-        viewModel.dailyAverage.observe(viewLifecycleOwner) { binding.tvDailyAverage.text = String.format("$%.2f", it) }
-        viewModel.incomePercent.observe(viewLifecycleOwner) { binding.tvIngresosPercent.text = "$it%" }
-        viewModel.expensePercent.observe(viewLifecycleOwner) { binding.tvGastosPercent.text = "$it%" }
+        viewModel.totalIncome.observe(viewLifecycleOwner, Observer { income ->
+            binding.tvTotalIncome.text = formatter.format(income)
+        })
+
+        viewModel.totalExpense.observe(viewLifecycleOwner, Observer { expense ->
+            binding.tvTotalExpense.text = formatter.format(expense)
+        })
+
+        viewModel.netBalance.observe(viewLifecycleOwner, Observer { balance ->
+            binding.tvNetBalance.text = formatter.format(balance)
+            // Cambiar color según si es positivo o negativo
+            if (balance >= 0) {
+                binding.tvNetBalance.setTextColor(requireContext().getColor(R.color.emerald_400))
+            } else {
+                binding.tvNetBalance.setTextColor(requireContext().getColor(R.color.red_400))
+            }
+        })
+
+        viewModel.dailyAverage.observe(viewLifecycleOwner, Observer { average ->
+            binding.tvDailyAverage.text = formatter.format(average)
+        })
+
+        viewModel.incomePercent.observe(viewLifecycleOwner, Observer { percent ->
+            binding.tvIngresosPercent.text = "$percent%"
+            // Ajustar altura de la barra
+            val params = binding.barIngresos.layoutParams
+            params.height = (percent * 1.2).toInt()
+            binding.barIngresos.layoutParams = params
+        })
+
+        viewModel.expensePercent.observe(viewLifecycleOwner, Observer { percent ->
+            binding.tvGastosPercent.text = "$percent%"
+            // Ajustar altura de la barra
+            val params = binding.barGastos.layoutParams
+            params.height = (percent * 1.2).toInt()
+            binding.barGastos.layoutParams = params
+        })
     }
 
-    private fun navigateMonth(delta: Int) {
-        val currentMonth = viewModel.selectedMonth.value ?: (Calendar.getInstance().get(Calendar.MONTH) + 1)
-        val currentYear = viewModel.selectedYear.value ?: Calendar.getInstance().get(Calendar.YEAR)
-
-        var newMonth = currentMonth + delta
-        var newYear = currentYear
-
-        if (newMonth > 12) {
-            newMonth = 1
-            newYear++
-        } else if (newMonth < 1) {
-            newMonth = 12
-            newYear--
-        }
-
-        viewModel.setMonth(newMonth)
-        viewModel.setYear(newYear)
+    private fun setupObservers() {
+        // Ya configurado en setupUI
     }
 
-    private fun updateBars() {
-        val incomePercent = viewModel.incomePercent.value ?: 0
-        val expensePercent = viewModel.expensePercent.value ?: 0
+    private fun setupClickListeners() {
+        // Navegación de meses
+        binding.btnPrevMonth.setOnClickListener {
+            viewModel.prevMonth()
+        }
 
-        // Ajusta altura de barras dinámicamente (máx 120dp)
-        val maxHeight = 120
-        binding.barIngresos.layoutParams.height = (maxHeight * incomePercent / 100).coerceAtLeast(10)
-        binding.barGastos.layoutParams.height = (maxHeight * expensePercent / 100).coerceAtLeast(10)
-        binding.barIngresos.requestLayout()
-        binding.barGastos.requestLayout()
+        binding.btnNextMonth.setOnClickListener {
+            viewModel.nextMonth()
+        }
+
+        // Seleccionar mes
+        binding.btnSelectMonth.setOnClickListener {
+            // TODO: Implementar selector de fecha
+            // Podrías mostrar un DatePickerDialog aquí
+        }
+    }
+
+    private fun getMonthName(month: Int): String {
+        return when (month) {
+            1 -> "ENERO"
+            2 -> "FEBRERO"
+            3 -> "MARZO"
+            4 -> "ABRIL"
+            5 -> "MAYO"
+            6 -> "JUNIO"
+            7 -> "JULIO"
+            8 -> "AGOSTO"
+            9 -> "SEPTIEMBRE"
+            10 -> "OCTUBRE"
+            11 -> "NOVIEMBRE"
+            12 -> "DICIEMBRE"
+            else -> "MES"
+        }
     }
 
     override fun onDestroyView() {

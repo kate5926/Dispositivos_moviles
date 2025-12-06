@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.gastos.ui.fragments.HomeFragment"
-        android:label="Home" />
+        android:label="Inicio"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_transaction"
+            app:destination="@id/transactionFragment" />
+
+        <action
+            android:id="@+id/action_home_to_transaction_list"
+            app:destination="@id/transactionListFragment" />
+
+        <action
+            android:id="@+id/action_home_to_budget"
+            app:destination="@id/budgetFragment" />
+
+        <action
+            android:id="@+id/action_home_to_report"
+            app:destination="@id/reportFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="com.example.gastos.ui.fragments.AddTransactionFragment"
-        android:label="Add Transaction" />
+        android:name="com.example.gastos.ui.fragments.TransactionFragment"
+        android:label="Nueva Transacción"
+        tools:layout="@layout/fragment_transaction" />
+
     <fragment
         android:id="@+id/transactionListFragment"
-        android:name="com.example.gastos.ui.fragments.TransactionListFragment"
-        android:label="Transaction List" />
+        android:name="com.example.gastos.ui.fragment.TransactionListFragment"
+        android:label="Historial"
+        tools:layout="@layout/fragment_transaction_list" />
+
     <fragment
         android:id="@+id/budgetFragment"
-        android:name="com.example.gastos.ui.fragments.BudgetFragment"
-        android:label="Budgets" />
+        android:name="com.example.gastos.ui.fragment.BudgetFragment"
+        android:label="Presupuestos"
+        tools:layout="@layout/fragment_budget" />
+
     <fragment
         android:id="@+id/reportFragment"
         android:name="com.example.gastos.ui.fragments.ReportFragment"
-        android:label="Reports" />
+        android:label="Reportes"
+        tools:layout="@layout/fragment_report" />
+
 </navigation>

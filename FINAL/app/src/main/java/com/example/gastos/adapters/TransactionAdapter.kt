@@ -46,13 +46,6 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVi
                 itemView.context.getColor(if (transaction.isIncome) R.color.emerald_400 else R.color.red_400)
             )
 
-            // Icono basado en tipo (puedes cambiar a drawables específicos)
-            binding.ivIcon.setImageResource(
-                if (transaction.isIncome) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down
-            )
-            binding.ivIcon.setColorFilter(
-                itemView.context.getColor(if (transaction.isIncome) R.color.emerald_400 else R.color.red_400)
-            )
         }
     }
 }

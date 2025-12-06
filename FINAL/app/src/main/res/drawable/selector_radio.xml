@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Estado seleccionado -->
+    <!-- Estado: Ingreso seleccionado -->
+    <item android:state_checked="true" android:state_selected="false">
+        <shape>
+            <solid android:color="@color/emerald_400" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+
+    <!-- Estado: Gasto seleccionado -->
     <item android:state_checked="true">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/bg_card" />
-            <corners android:radius="8dp" />
-            <stroke
-                android:width="1dp"
-                android:color="@color/neon_purple" />
+        <shape>
+            <solid android:color="@color/red_400" />
+            <corners android:radius="6dp" />
         </shape>
     </item>
 
     <!-- Estado normal -->
     <item>
-        <shape android:shape="rectangle">
+        <shape>
             <solid android:color="@android:color/transparent" />
-            <corners android:radius="8dp" />
+            <corners android:radius="6dp" />
         </shape>
     </item>
 

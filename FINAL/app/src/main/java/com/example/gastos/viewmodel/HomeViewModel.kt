@@ -1,4 +1,4 @@
-package com.example.gastos.viewmodel
+package com.example.gastos.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -20,12 +20,21 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val expenses: LiveData<Double> = _expenses
 
     init {
-        loadData()
+        updateStats()
     }
 
-    private fun loadData() {
-        _income.value = transactionManager.getTotalIncome()
-        _expenses.value = transactionManager.getTotalExpenses()
-        _balance.value = transactionManager.getBalance()
+    fun refreshData() {
+        updateStats()
+    }
+
+    private fun updateStats() {
+        // Obtener datos del TransactionManager
+        val totalIncome = transactionManager.getTotalIncome()
+        val totalExpenses = transactionManager.getTotalExpenses()
+        val currentBalance = totalIncome - totalExpenses
+
+        _income.value = totalIncome
+        _expenses.value = totalExpenses
+        _balance.value = currentBalance
     }
 }
