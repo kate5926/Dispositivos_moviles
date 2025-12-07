@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "gastos"
+rootProject.name = "Planificador Financiero"
 include(":app")
  
