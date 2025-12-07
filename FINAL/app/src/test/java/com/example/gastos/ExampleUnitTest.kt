@@ -1,4 +1,4 @@
-package com.example.gastos
+package es.uva.sg.psm.planificadorfinanciero
 
 import org.junit.Test
 
